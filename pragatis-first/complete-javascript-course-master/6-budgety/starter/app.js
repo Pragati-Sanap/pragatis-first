@@ -117,7 +117,7 @@ var  UIController=(function(){
             return{
             type : document.querySelector(DOMstrings.inputType).value,
             description : document.querySelector(DOMstrings.inputDescription).value,
-            value : document.querySelector(DOMstrings.inputValue).value,
+            value : parseFloat(document.querySelector(DOMstrings.inputValue).value),
             };
         },
         
@@ -146,14 +146,18 @@ var  UIController=(function(){
             //3.insert the HTML INTO DOM
             document.querySelector(element).insertAdjacentHTML('beforeend',newHTML);
         },
+        
         clearFields:function(){
-            var fiels,fieldsArray; field = document.querySelectorAll(DOMstrings.inputDescription+' , '+DOMstrings.inputValue);  
+            var fields,fieldsArray; 
+            fields = document.querySelectorAll(DOMstrings.inputDescription+' , '+DOMstrings.inputValue);  
             fieldsArray=Array.prototype.slice.call(fields);
             
             fieldsArray.forEach(function(current,index,array){
                 current.value= "";
             });
         },
+        
+        
         getDOMstrings:function(){
             return DOMstrings;
         }
