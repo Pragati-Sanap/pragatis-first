@@ -335,6 +335,7 @@ c.correct answer (I would choose no for this)
 that all your code is private and doesn't interface with the other programmers code.
 (hint: we learned a special ethod to do that)
 */
+/*
 (function(){
     
 function Question(question, answer,correct){
@@ -377,7 +378,7 @@ question[n].checkAnswer(answer);
 
 
 
-
+*/
 /*
 8.After you display the result ,display the next random question ,so that the game never ends(Hint:write a function for this and call it right after displaying the result.)
 
@@ -385,3 +386,67 @@ question[n].checkAnswer(answer);
 */
 
 
+
+ (function(){
+    
+function Question(question, answer,correct){
+    this.question = question;
+    this.answer = answer;
+    this.correct = correct;
+}
+
+Question.prototype.displayQuestion = function(){
+    console.log(this.question);
+    
+    for(var i = 0;i < this.answer.length; i++){
+        console.log(i+':'+ this.answer[i]);
+    }
+}
+
+Question.prototype.checkAnswer = function(ans,callback){
+    var sc=0;
+    if(ans == this.correct){
+        console.log('Correct answer...');
+        sc=callback(true);
+        
+    }
+    else{
+        console.log('wrong answer....');
+        sc=callback(false);
+    }
+    this.displayScore();
+}
+Question.prototype.displayScore= function(sc){
+    conole.log('your current score is '+sc+'\n----------------------------');
+}
+var q1 = new Question('What is your age?',[20,21,22],1);
+var q2 =  new Question('what is your job?',['teacher','designer','developer'],2);
+var q3=new Question('Do you want to continue the course?',['yes','no','not decided!'],0);
+
+function nextQuestion(){
+    var question=[q1,q2,q3];
+    
+function score(){
+        var sc=0;
+        return function(){
+            if(correct){
+                sc++;
+            }
+            return sc;
+        }
+    }
+var keepScore=score();
+
+var n=Math.floor(Math.random() * question.length);
+question[n].displayQuestion();
+
+answer= prompt('enter the answer..');
+
+       
+    if(answer!=='exit'){
+       question[n].checkAnswer(parseInt(answer));
+       nextQuestion();
+    }
+    }
+nextQuestion();
+})();
